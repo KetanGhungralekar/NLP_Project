@@ -1,0 +1,2 @@
+Backend/summariser-api/model/*.keras
+Backend/summariser-api/model/*.pkl
