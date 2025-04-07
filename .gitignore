@@ -1,3 +1,4 @@
 Backend/summariser-api/model/*.keras
 Backend/summariser-api/model/*.pkl
 Backend/summariser-api/model/__pycache__
+*.csv
