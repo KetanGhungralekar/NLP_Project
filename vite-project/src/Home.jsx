@@ -6,14 +6,14 @@ const Home = () => {
   const [summary, setSummary] = useState("");
 
   const handleRefresh = async () => {
-    const response = await fetch("http://localhost:5000/api/article");
+    const response = await fetch("http://127.0.0.1:5000/article");
     const data = await response.json();
     setArticle(data.article);
     setSummary("");
   };
 
   const handleGenerateSummary = async () => {
-    const response = await fetch("http://localhost:5000/api/summarize", {
+    const response = await fetch("http://127.0.0.1:5000/summarize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ article }),
