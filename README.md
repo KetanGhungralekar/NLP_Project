@@ -1,5 +1,3 @@
----
-
 # NLP Project
 
 This repository focuses on **Abstractive Text Summarization** and includes both backend and frontend components to handle text summarization tasks. Below is a detailed explanation of the project, its components, and how to use it.
@@ -50,9 +48,6 @@ This repository focuses on **Abstractive Text Summarization** and includes both 
   4. **Seq2Seq**:
      - Combines the encoder and decoder into a complete model.
      - Includes methods for training (`train_step`), inference (`call`), and summary generation (`generate`).
-- **Highlights**:
-  - Manages input/output vocabularies and sequences.
-  - Uses TensorFlow/Keras APIs and custom logic for attention and sequence generation.
 
 ### 3. `inference.py`
 - **Path**: [Backend/summariser-api/model/inference.py](https://github.com/KetanGhungralekar/NLP_Project/blob/main/Backend/summariser-api/model/inference.py)
@@ -68,6 +63,30 @@ This repository focuses on **Abstractive Text Summarization** and includes both 
      - Takes input text, converts it into token sequences using the encoder tokenizer (`e_tk`), and pads the sequences.
      - Feeds the processed input to the model to generate output token sequences.
      - Converts the output token IDs back into words using the word dictionary (`word_dict`) and returns the final summary.
+
+---
+
+## Requirements to Run the API
+
+The following files are required to run the API and should be placed in the `Backend/summariser-api/model` directory:
+
+1. **Attention_Model_(teacher_forcing).keras**: The main trained Keras model file (2.07 GB).
+2. **d_tk.pkl**: Pickle file for the decoder tokenizer (1.61 MB).
+3. **e_tk.pkl**: Pickle file for the encoder tokenizer (3.67 MB).
+4. **metadata.pkl**: Pickle file containing metadata related to the model and tokenizers (543 KB).
+
+### **Download the Required Files**
+
+All the above files are available in a shared OneDrive folder.  
+**[Click here to access the OneDrive files](https://1drv.ms/f/s!Aq6IDKxQTMblqrMGNySnNtE9NHcGdg?e=sfvhRP)**  
+
+### **Steps to Place the Files**
+1. Download the files from the OneDrive link.
+2. Navigate to the `Backend/summariser-api/model` directory in your project:
+   ```bash
+   cd Backend/summariser-api/model
+   ```
+3. Place the downloaded files (`Attention_Model_(teacher_forcing).keras`, `d_tk.pkl`, `e_tk.pkl`, `metadata.pkl`) in this directory.
 
 ---
 
