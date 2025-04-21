@@ -118,45 +118,6 @@ class Seq2Seq(M.Model):
             result.append(prediction.numpy())
             dec_in = tf.expand_dims(prediction, 0) 
         return result
-    # def generate(self, enc_inputs, max_len, start, end, min_len=3, confidence_threshold=0.85):
-    #     enc_out, hidden_state, cell_state = self.encoder(enc_inputs)
-    #     dec_in = tf.expand_dims([start], 0)  # (1, 1)
-    #     result = []
-    #     for i in range(max_len):
-    #         logits, hidden_state, cell_state = self.decoder(dec_in, hidden_state, cell_state, enc_out)
-    #         probs = tf.nn.softmax(logits, axis=-1)
-    #         prediction = tf.argmax(probs, axis=-1)
-    #         predicted_prob = tf.reduce_max(probs, axis=-1).numpy()[0][0]
-
-    #         if prediction == end and i >= min_len:
-    #             break
-
-    #         if predicted_prob < confidence_threshold and i >= min_len:
-    #             break
-
-    #         result.append(prediction.numpy()[0][0])
-    #         dec_in = tf.expand_dims(prediction, 0)
-    #     return result
-
-    
-    # def get_config(self):
-    #     config = super(Seq2Seq, self).get_config()
-    #     config.update({
-    #           'in_vocab': self.in_vocab,
-    #           'out_vocab': self.out_vocab,
-    #           'embedding_dim': self.embedding_dim,
-    #           'hidden_units': self.hidden_units
-    #       })
-    #     return config
-
-    # @classmethod
-    # def from_config(cls, config):
-    #     return cls(
-    #         in_vocab=config['in_vocab'],
-    #         out_vocab=config['out_vocab'],
-    #         embedding_dim=config['embedding_dim'],
-    #         hidden_units=config['hidden_units']
-    #     )
     def get_config(self):
         config = super(Seq2Seq, self).get_config()
         config.update({
