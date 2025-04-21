@@ -54,6 +54,18 @@ This repository focuses on **Abstractive Text Summarization** and includes both 
      - Feeds the processed input to the model to generate output token sequences.
      - Converts the output token IDs back into words using the word dictionary (`word_dict`) and returns the final summary.
 
+### 4. `inference.ipynb`
+- **Path**: [Backend/summariser-api/model/inference.ipynb](https://github.com/KetanGhungralekar/NLP_Project/blob/main/Backend/summariser-api/model/inference.ipynb)
+- **Purpose**: Demonstrates the inference process for generating summaries using the trained Seq2Seq model in a Jupyter Notebook format. This is designed for submission purposes.
+- **Workflow**:
+  1. **Model Loading**:
+     - Loads the trained `Attention_Model_(teacher_forcing).keras` model.
+     - Utilizes custom objects (e.g., `Seq2Seq`) for proper model reconstruction during loading.
+  3. **Interactive Summary Generation**:
+     - Provides an interactive cell to input custom text.
+     - Converts the input text into token sequences using the encoder tokenizer (`e_tk`) and pads the sequences.
+     - Feeds the processed input into the model to generate output token sequences.
+     - Decodes the output token IDs into words using the word dictionary (`word_dict`) and displays the final summary.
 ---
 
 ## Requirements to Run the API
