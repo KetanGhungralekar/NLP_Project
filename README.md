@@ -32,7 +32,6 @@ This repository focuses on **Abstractive Text Summarization** and includes both 
 
 Before running the project, ensure you have the following Python modules installed:
 
-- `transformers`
 - `torch`
 - `pandas`
 - `flask`
