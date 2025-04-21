@@ -6,18 +6,6 @@ This repository focuses on **Abstractive Text Summarization** and includes both 
 
 ---
 
-## Repository Overview
-
-- **Repository URL**: [NLP_Project](https://github.com/KetanGhungralekar/NLP_Project)
-- **Languages Used**:
-  - Jupyter Notebook: 83.2%
-  - Python: 12%
-  - JavaScript: 2.5%
-  - CSS: 2%
-  - HTML: 0.3%
-
----
-
 ## Directory Structure
 
 ### **Frontend**
