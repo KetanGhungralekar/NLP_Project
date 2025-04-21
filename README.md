@@ -38,16 +38,6 @@ This repository focuses on **Abstractive Text Summarization** and includes both 
 ### 2. `seq2seq.py`
 - **Path**: [Backend/summariser-api/model/seq2seq.py](https://github.com/KetanGhungralekar/NLP_Project/blob/main/Backend/summariser-api/model/seq2seq.py)
 - **Purpose**: It contains the **SAME** Seq2Seq model architecture as used in `abstractive-summarisation-model.ipynb`. It has only been implemented here to use it for loading the model for inference purposes (API)
-- **Components**:
-  1. **BahdanauAttention**:
-     - A custom attention layer that focuses on relevant parts of the input sequence while generating output tokens.
-  2. **Encoder**:
-     - Converts input text into meaningful feature representations using an embedding layer and an LSTM.
-  3. **Decoder**:
-     - Generates the summary token by token using an embedding layer, LSTM, and the BahdanauAttention layer.
-  4. **Seq2Seq**:
-     - Combines the encoder and decoder into a complete model.
-     - Includes methods for training (`train_step`), inference (`call`), and summary generation (`generate`).
 
 ### 3. `inference.py`
 - **Path**: [Backend/summariser-api/model/inference.py](https://github.com/KetanGhungralekar/NLP_Project/blob/main/Backend/summariser-api/model/inference.py)
