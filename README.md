@@ -37,7 +37,7 @@ This repository focuses on **Abstractive Text Summarization** and includes both 
 
 ### 2. `seq2seq.py`
 - **Path**: [Backend/summariser-api/model/seq2seq.py](https://github.com/KetanGhungralekar/NLP_Project/blob/main/Backend/summariser-api/model/seq2seq.py)
-- **Purpose**: Implements the Seq2Seq model architecture with an attention mechanism for abstractive summarization.
+- **Purpose**: It contains the **SAME** Seq2Seq model architecture as used in `abstractive-summarisation-model.ipynb`. It has only been implemented here to use it for loading the model for inference purposes (API)
 - **Components**:
   1. **BahdanauAttention**:
      - A custom attention layer that focuses on relevant parts of the input sequence while generating output tokens.
