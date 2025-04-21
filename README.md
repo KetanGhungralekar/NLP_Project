@@ -38,7 +38,6 @@ Before running the project, ensure you have the following Python modules install
 - `flask`
 - `flask-cors`
 - `numpy`
-- `gunicorn` (optional, for deployment)
 
 Install all the dependencies using the following command:
 
