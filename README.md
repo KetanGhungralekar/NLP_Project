@@ -1,47 +1,114 @@
----
-
 # NLP Project
 
-This repository focuses on **Abstractive Text Summarization** and includes both backend and frontend components to handle text summarization tasks. Below is a detailed overview of the files, setup instructions, and usage details.
-
-## Files Overview
-
-### 1. `abstractive-summarisation-model.ipynb`
-- This Jupyter Notebook contains the implementation of the abstractive text summarization model.
-- It demonstrates the process of training a model and generating summaries for input text using state-of-the-art NLP techniques.
-
-### 2. `Csv_creation.py`
-- A Python script that helps in creating structured CSV files from input data.
-- The output CSV files can be used for model training or testing purposes.
+This repository focuses on **Abstractive Text Summarization** and includes both backend and frontend components to handle text summarization tasks. Below is a detailed explanation of the project, its components, and how to use it.
 
 ---
 
 ## Directory Structure
 
 ### **Frontend**
-- The frontend directory is located in `vite-project`.
-- It is built using [Vite](https://vitejs.dev/), a modern frontend tool. The frontend provides an interface for users to input text and view generated summaries.
+- Located in the `vite-project` directory.
+- Built using [Vite](https://vitejs.dev/), a modern frontend tool.
+- Provides an interface for users to input text and view generated summaries.
 
 ### **Backend**
-- The backend directory is located in `Backend/summariser-api`.
-- It is built using Flask and provides APIs for handling summarization tasks.
+- Located in the `Backend/summariser-api` directory.
+- Built using Flask and includes the APIs for handling summarization tasks.
+- Includes the `model` subdirectory, containing the summarization model logic. ([model directory link](https://github.com/KetanGhungralekar/NLP_Project/tree/main/Backend/summariser-api/model))
+
+---
+
+## Files Overview
+
+### 1. `abstractive-summarisation-model.ipynb`
+- **Purpose**: Implements the abstractive text summarization model using deep learning techniques.
+- **Dataset**: Uses the **CNN/DailyMail dataset**, loaded from `/kaggle/input/newspaper-text-summarization-cnn-dailymail/cnn_dailymail/train.csv`.
+- **Workflow**:
+  1. **Preprocessing**:
+     - Tokenizes and pads text data using TensorFlow/Keras preprocessing utilities.
+  2. **Model Instance**:
+     - Builds an encoder-decoder architecture with attention mechanisms using TensorFlow/Keras.
+  3. **Training**:
+     - Trains the model on the dataset using categorical crossentropy loss and Adam optimizer.
+  4. **Saving**:
+     - Saves the trained model for later use.
+  5. **Testing**:
+     - Tests the model on unseen data and evaluates it using metrics like the **ROUGE score**.
+
+### 2. `seq2seq.py`
+- **Path**: [Backend/summariser-api/model/seq2seq.py](https://github.com/KetanGhungralekar/NLP_Project/blob/main/Backend/summariser-api/model/seq2seq.py)
+- **Purpose**: It contains the **SAME** Seq2Seq model architecture as used in `abstractive-summarisation-model.ipynb`. It has only been implemented here to use it for loading the model for inference purposes (API)
+
+### 3. `inference.py`
+- **Path**: [Backend/summariser-api/model/inference.py](https://github.com/KetanGhungralekar/NLP_Project/blob/main/Backend/summariser-api/model/inference.py)
+- **Purpose**: Provides the logic to generate summaries using the trained Seq2Seq model.
+- **Workflow**:
+  1. **Model Loading**:
+     - Loads the trained `Attention_Model_(teacher_forcing).keras` model.
+     - Uses custom objects (e.g., `Seq2Seq`) during the loading process.
+  2. **Tokenizers and Metadata**:
+     - Loads tokenizers (`e_tk.pkl` and `d_tk.pkl`) for encoding input text and decoding output token sequences.
+     - Loads metadata (`metadata.pkl`) containing the word dictionary (`word_dict`), special tokens (`start_id`, `end_id`), and sequence length configurations (`input_seq_len`, `output_seq_len`).
+  3. **Summary Generation** (`generate_summary` function):
+     - Takes input text, converts it into token sequences using the encoder tokenizer (`e_tk`), and pads the sequences.
+     - Feeds the processed input to the model to generate output token sequences.
+     - Converts the output token IDs back into words using the word dictionary (`word_dict`) and returns the final summary.
+
+---
+
+## Requirements to Run the API
+
+The following files are required to run the API and should be placed in the `Backend/summariser-api/model` directory:
+
+1. **Attention_Model_(teacher_forcing).keras**: The main trained Keras model file (2.07 GB).
+2. **d_tk.pkl**: Pickle file for the decoder tokenizer (1.61 MB).
+3. **e_tk.pkl**: Pickle file for the encoder tokenizer (3.67 MB).
+4. **metadata.pkl**: Pickle file containing metadata related to the model and tokenizers (543 KB).
+
+### **Download the Required Files**
+
+All the above files are available in a shared OneDrive folder.  
+**[Click here to access the OneDrive files](https://1drv.ms/f/s!Aq6IDKxQTMblqrMGNySnNtE9NHcGdg?e=sfvhRP)**  
+
+### **Steps to Place the Files**
+1. Download the files from the OneDrive link.
+2. Navigate to the `Backend/summariser-api/model` directory in your project:
+   ```bash
+   cd Backend/summariser-api/model
+   ```
+3. Place the downloaded files (`Attention_Model_(teacher_forcing).keras`, `d_tk.pkl`, `e_tk.pkl`, `metadata.pkl`) in this directory.
 
 ---
 
 ## Requirements
 
-Before running the project, ensure you have the following Python modules installed:
+### Importing Libraries
+The project uses the following Python libraries:
+```python
+import keras
+import tensorflow as tf
+import numpy as np
+import pandas as pd
+from tensorflow.keras import layers as L
+from tensorflow.keras import models as M
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from rouge_score import rouge_scorer
+```
 
-- `torch`
+### Dependencies
+Make sure these Python modules are installed:
+- `keras`
+- `tensorflow`
 - `pandas`
 - `flask`
 - `flask-cors`
 - `numpy`
+- `rouge-score`
 
-Install all the dependencies using the following command:
-
+Install all dependencies using:
 ```bash
-pip install -r requirements.txt
+pip install keras tensorflow pandas flask flask-cors numpy rouge-score
 ```
 
 ---
@@ -62,9 +129,9 @@ To start the backend service:
 
 ### Backend API Endpoints
 
-1. **`/generate_summary`**
+1. **`/summarize`**
    - **Method:** POST  
-   - **Description:** Accepts raw text input in JSON format and generates an abstractive summary.  
+   - **Description:** Accepts raw text input and generates an abstractive summary using the logic from `inference.py`.  
    - **Input Example:**
      ```json
      {
@@ -74,15 +141,20 @@ To start the backend service:
    - **Output Example:**
      ```json
      {
+       "input": "Your input text here.",
        "summary": "Generated summary here."
      }
      ```
 
-2. **`/get_summary_csv`**
-   - **Method:** POST  
-   - **Description:** Accepts a CSV file of text data and returns a new CSV file with summaries.  
-   - **Input Example:** Upload a CSV file with a column containing text.  
-   - **Output Example:** A downloadable CSV file with an additional column for summaries.
+2. **`/article`**
+   - **Method:** GET  
+   - **Description:** Returns a random article from the preloaded dataset (`filtered_train.csv`).  
+   - **Output Example:**
+     ```json
+     {
+       "article": "A random article text here."
+     }
+     ```
 
 ---
 
@@ -104,14 +176,16 @@ To start the frontend application:
    ```
 4. Access the frontend in your browser at the address provided by Vite (e.g., `http://localhost:5173`).
 
-The frontend allows users to input text or upload files for summarization and displays the generated summaries.
+The frontend allows users to input text or fetch random articles for summarization and displays the generated summaries.
 
 ---
 
 ## How to Use
 
-1. Start both the **frontend** and **backend** as described above.
-2. Use the frontend interface to input text or upload files for summarization.
+1. Start the **backend** and **frontend** as described above.
+2. Use the frontend interface to:
+   - Input custom text for summarization, or
+   - Fetch a random article for summarization.
 3. The frontend communicates with the backend APIs to generate and display summaries.
 
 ---
