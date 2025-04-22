@@ -160,7 +160,7 @@ To start the backend service:
 
 2. **`/article`**
    - **Method:** GET  
-   - **Description:** Returns a random article from the preloaded dataset (`filtered_train.csv`).  
+   - **Description:** Returns a random article from the preloaded dataset. 
    - **Output Example:**
      ```json
      {
