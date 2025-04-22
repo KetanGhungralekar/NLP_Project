@@ -54,6 +54,18 @@ This repository focuses on **Abstractive Text Summarization** and includes both 
      - Feeds the processed input to the model to generate output token sequences.
      - Converts the output token IDs back into words using the word dictionary (`word_dict`) and returns the final summary.
 
+### 4. `inference.ipynb`
+- **Path**: [Backend/summariser-api/model/inference.ipynb](https://github.com/KetanGhungralekar/NLP_Project/blob/main/Backend/summariser-api/model/inference.ipynb)
+- **Purpose**: Demonstrates the inference process for generating summaries using the trained Seq2Seq model in a Jupyter Notebook format. This is designed for submission purposes.
+- **Workflow**:
+  1. **Model Loading**:
+     - Loads the trained `Attention_Model_(teacher_forcing).keras` model.
+     - Utilizes custom objects (e.g., `Seq2Seq`) for proper model reconstruction during loading.
+  3. **Interactive Summary Generation**:
+     - Provides an interactive cell to input custom text.
+     - Converts the input text into token sequences using the encoder tokenizer (`e_tk`) and pads the sequences.
+     - Feeds the processed input into the model to generate output token sequences.
+     - Decodes the output token IDs into words using the word dictionary (`word_dict`) and displays the final summary.
 ---
 
 ## Requirements to Run the API
@@ -68,7 +80,7 @@ The following files are required to run the API and should be placed in the `Bac
 ### **Download the Required Files**
 
 All the above files are available in a shared OneDrive folder.  
-**[Click here to access the OneDrive files](https://1drv.ms/f/s!Aq6IDKxQTMblqrMGNySnNtE9NHcGdg?e=sfvhRP)**  
+**[Click here to access the OneDrive files](https://1drv.ms/f/c/e5c64c50ac0c88ae/EgdBuH5wFwlPov6UETlhLUEBZIwjyauxGzvIsmKYx7L0dw?e=cT2BXY)**  
 
 ### **Steps to Place the Files**
 1. Download the files from the OneDrive link.
@@ -148,7 +160,7 @@ To start the backend service:
 
 2. **`/article`**
    - **Method:** GET  
-   - **Description:** Returns a random article from the preloaded dataset (`filtered_train.csv`).  
+   - **Description:** Returns a random article from the preloaded dataset. 
    - **Output Example:**
      ```json
      {
